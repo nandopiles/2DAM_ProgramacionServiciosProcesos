@@ -1,6 +1,7 @@
+package ej;
+
 
 import java.io.DataInputStream;
-import java.io.InputStream;
 import java.net.Socket;
 
 /**
