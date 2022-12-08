@@ -45,9 +45,13 @@ public class Persona extends Thread {
 
     @Override
     public void run() {
-        ferIngres();
-        ferRetirada();
-        ferIngres();
-        ferRetirada();
+        synchronized (compte) {
+            ferIngres();
+            ferRetirada();
+            ferIngres();
+            ferRetirada();
+
+            compte.notifyAll(); //(està mal), alliberen tots els fils que estan esperant
+        }
     }
 }
