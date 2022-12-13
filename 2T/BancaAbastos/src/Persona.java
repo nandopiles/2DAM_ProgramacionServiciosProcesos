@@ -21,6 +21,14 @@ public class Persona extends Thread {
 
     /**
      *
+     * @return nom de la persona
+     */
+    public String getNom() {
+        return nom;
+    }
+
+    /**
+     *
      * @return num random del 1 al 500
      */
     public int random() {
@@ -28,11 +36,11 @@ public class Persona extends Thread {
     }
 
     /**
-     * Se fa un ingrés amb el nom y quantitat ficada
+     * Se fa un ingres amb el nom y quantitat ficada
      */
     public void ferIngres() {
         int quantitatSumar = random();
-        compte.ingres(this.nom, quantitatSumar);
+        compte.ingres(getNom(), quantitatSumar);
     }
 
     /**
@@ -40,18 +48,14 @@ public class Persona extends Thread {
      */
     public void ferRetirada() {
         int quantitatRestar = random();
-        compte.reintegrament(this.nom, quantitatRestar);
+        compte.reintegrament(getNom(), quantitatRestar);
     }
 
     @Override
     public void run() {
-        synchronized (compte) {
-            ferIngres();
-            ferRetirada();
-            ferIngres();
-            ferRetirada();
-
-            compte.notifyAll(); //(està mal), alliberen tots els fils que estan esperant
-        }
+        ferIngres();
+        ferRetirada();
+        ferIngres();
+        ferRetirada();
     }
 }

@@ -6,7 +6,6 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 
 /**
- *
  * @author 7J
  */
 public class Servidor {
@@ -25,10 +24,11 @@ public class Servidor {
 
             while (true) {
                 DatagramPacket dpRebut = new DatagramPacket(missatgeRebut, missatgeRebut.length);
-                dSocket.receive(dpRebut);
-                System.out.println("Rep del client: " + new String(dpRebut.getData(), dpRebut.getLength()));
-
-                DatagramPacket dpResposta = new DatagramPacket(dpRebut.getData(), dpRebut.getLength(), dpRebut.getAddress(), dpRebut.getPort());
+                dSocket.receive(dpRebut); //rep el datagrama
+                System.out.printf("Rep del client: %s\n", new String(dpRebut.getData()));
+                String resposta = "Cómo que ... " + new String(dpRebut.getData());
+                //Envía la resposta que vuiga per la ADRESSA i PORT per el que s'ha comunicat el Client
+                DatagramPacket dpResposta = new DatagramPacket(resposta.getBytes(), resposta.length(), dpRebut.getAddress(), dpRebut.getPort());
                 dSocket.send(dpResposta);
             }
         } catch (SocketException e1) {

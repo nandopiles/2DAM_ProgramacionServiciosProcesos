@@ -18,7 +18,7 @@ class Servidor {
             System.out.println("Escolte al port " + PORT);
 
             while (true) {
-                // M�TODE accept() CREA UN NOU Socket PER A COMUNICAR-SE AMB EL CLIENT
+                // METODE accept() CREA UN NOU Socket PER A COMUNICAR-SE AMB EL CLIENT
                 Socket sCliente = ssServidor.accept();
                 System.out.println("Serveisc al client");
 

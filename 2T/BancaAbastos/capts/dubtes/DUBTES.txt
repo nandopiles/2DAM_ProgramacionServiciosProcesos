@@ -1,5 +1,0 @@
-1. Métodes syncronized o blocs sincronitzats?
-2. Captures
-3. (Rúbrica) => estructura bé les classes(atr, met) ?
-4. (Rúbrica) => BLOCS sincronitzats => métodes* ?
-5. notifyAll ?

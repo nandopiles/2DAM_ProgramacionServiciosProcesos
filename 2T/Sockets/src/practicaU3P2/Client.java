@@ -30,7 +30,7 @@ class Client {
             } while (!cadena.equals("Adeu"));
 
             // TANQUE EL SOCKET
-            System.out.println("Tancant connexio...");
+            System.out.println("Tancant connexió...");
             sCliente.close();
         } catch (IOException e) {
             System.out.println("Error: no s'ha pogut connectar a " + host + ":" + PORT);
@@ -38,12 +38,12 @@ class Client {
         }
     }
 
-    public static void main(String[] arg) {
-        if (arg.length != 1) {
+    public static void main(String[] args) {
+        if (args.length != 1) {
             System.out.println("Error: deus introduir un parametre que es el HOST");
             return;
         }
-        new Client(arg[0]);
+        new Client(args[0]);
         return;
     }
 }
