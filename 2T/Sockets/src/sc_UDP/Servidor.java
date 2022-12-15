@@ -27,7 +27,7 @@ public class Servidor {
                 dSocket.receive(dpRebut); //rep el datagrama
                 System.out.printf("Rep del client: %s\n", new String(dpRebut.getData()));
                 String resposta = "Cómo que ... " + new String(dpRebut.getData());
-                //Envía la resposta que vuiga per la ADRESSA i PORT per el que s'ha comunicat el Client
+                //Envía la resposta que vuiga per l'ADRESSA i PORT pel qual s'ha comunicat el Client
                 DatagramPacket dpResposta = new DatagramPacket(resposta.getBytes(), resposta.length(), dpRebut.getAddress(), dpRebut.getPort());
                 dSocket.send(dpResposta);
             }
