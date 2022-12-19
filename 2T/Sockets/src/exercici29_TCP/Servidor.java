@@ -25,21 +25,23 @@ public class Servidor {
 
         System.out.printf("[*] Escolte al port %d...\n", PORT);
 
-        while (true) {
-            Socket sCliente = ssServidor.accept();
-            System.out.println("[+] Serveisc al client");
+        Socket sCliente = ssServidor.accept();
+        System.out.println("[+] Serveisc al client\n");
 
-            DataInputStream disEntrada = new DataInputStream(sCliente.getInputStream());
-            DataOutputStream dosEixida = new DataOutputStream(sCliente.getOutputStream());
+        DataInputStream disEntrada = new DataInputStream(sCliente.getInputStream());
+        DataOutputStream dosEixida = new DataOutputStream(sCliente.getOutputStream());
 
-            producte = disEntrada.readUTF();
-            llistaCompra = new File("./src/exercici29_TCP/output/" + getDataActual() + ".txt");
-            pw = new PrintWriter(new FileWriter(llistaCompra, true));
-            pw.write(producte + "\n");
-            pw.close();
-            System.out.printf("[Client] Producte afegit => \"%s\"\n", producte.toUpperCase());
-            dosEixida.writeUTF("Producte \"" + producte.toUpperCase() + "\" afegit en èxit\n");
-        }
+        producte = disEntrada.readUTF();
+        llistaCompra = new File("./src/exercici29_TCP/output/" + getDataActual() + ".txt");
+        pw = new PrintWriter(new FileWriter(llistaCompra, true));
+        pw.write(producte + "\n");
+        pw.close();
+        System.out.printf("[Client] Producte afegit => \"%s\"\n", producte.toUpperCase());
+        dosEixida.writeUTF("Producte \"" + producte.toUpperCase() + "\" afegit en èxit\n");
+
+        System.out.println("\n[*] Tancant Servidor...");
+        ssServidor.close();
+        sCliente.close();
     }
 
     public static void main(String[] args) throws IOException {
