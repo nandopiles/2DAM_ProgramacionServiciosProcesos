@@ -50,25 +50,26 @@ public class Hacker implements Runnable, Comu {
 
             if (this.getName().equals("Neo")) {
                 this.meetingRoom.setNeoHasCome();
-                System.out.println("****** Neo-: Bon dia. Anem a destruir RAMONIX! ******");
-                System.out.printf("JA ESTEM TOTS. %s COMENÇA L'ATAC!!!\n", this.getName());
+                System.out.printf("****** %s-: Bon dia. Anem a destruir RAMONIX! ******\n", this.getName());
                 this.meetingRoom.notifyAll();
-            } else {
-                if (!meetingRoom.isNeoHasCome()) {
-                    System.out.println("Encara no està Neo...");
-                    meetingRoom.wait();
-                }
-                System.out.printf("JA ESTEM TOTS. %s COMENÇA L'ATAC!!!\n", this.getName());
+            } else if (!meetingRoom.isNeoHasCome()) {
+                System.out.println("Encara no està Neo...");
+                meetingRoom.wait();
             }
         }
     }
 
     public void run() {
+        boolean isDestroyed;
+
         try {
             hasNeoArrive();
-            //Hacker ataca... => puede que haya que poner aquí los mensajes de "JA ESTEM TOTS. %s ATACA..."
-            Atac.ferAtac(this.getName(), this.getStrength(), this.getCadence());
-        } catch (IOException | InterruptedException a) {
+            System.out.printf("JA ESTEM TOTS. %s COMENÇA L'ATAC!!!\n", this.getName());
+            do {
+                new Atac(this);
+                isDestroyed = Atac.ferAtac();
+            } while (!isDestroyed);
+        } catch (InterruptedException | IOException e1) {
         }
     }
 

@@ -1,4 +1,7 @@
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -38,24 +41,11 @@ public class Ramonix implements Comu, Serializable {
     }
 
     /**
-     * @return nombre de Hackers que li envia el Client
+     * @throws IOException
      */
-    public int receiveNumberOfHackers() throws IOException {
-        sClient = ssServer.accept();
-
-        DataInputStream disEntrada = new DataInputStream(sClient.getInputStream());
-        return disEntrada.readInt();
-    }
-
-    /**
-     * Acceptem a tots els Hackers
-     *
-     * @param numberOfHackers nombre de Hackers
-     */
-    public void acceptsHackers(int numberOfHackers) throws IOException {
-        for (int i = 0; i < numberOfHackers; i++) {
-            sClient = ssServer.accept();
-        }
+    public static void isDestroyed() throws IOException {
+        DataOutputStream dosOutput = new DataOutputStream(sClient.getOutputStream());
+        dosOutput.writeBoolean(getLife() <= 0);
     }
 
     /**
@@ -67,7 +57,7 @@ public class Ramonix implements Comu, Serializable {
         String attackersName;
         int attack;
 
-        strengthAttackWithName = disInput.readUTF().split(" ");
+        strengthAttackWithName = disInput.readUTF().split(" "); //a
         attack = Integer.parseInt(strengthAttackWithName[0]);
         attackersName = strengthAttackWithName[1];
         switch (attackersName) {
@@ -88,14 +78,15 @@ public class Ramonix implements Comu, Serializable {
 
     public void startServer() throws IOException {
         ssServer = new ServerSocket(PORT);
-        int numberOfHackers;
 
-        numberOfHackers = receiveNumberOfHackers();
-        acceptsHackers(numberOfHackers);
         while (getLife() > 0) {
+            sClient = ssServer.accept();
+            isDestroyed();
             receiveAttack();
+            sClient.close();
         }
         System.out.println("COMUNIQUE AL CLIENT QUE TANQUE");
+        sClient.close();
         ssServer.close();
     }
 

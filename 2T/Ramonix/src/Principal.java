@@ -6,17 +6,6 @@ import java.util.ArrayList;
 public class Principal implements Comu {
     public static ArrayList<Thread> hackersList = new ArrayList<>();
 
-    /**
-     * Mana al Servidor quants Hackers té guardat el client en la llista
-     */
-    public static void sendNumberOfHackers() throws IOException {
-        Socket sClient = new Socket(HOST, PORT);
-        DataOutputStream dosOutput = new DataOutputStream(sClient.getOutputStream());
-
-        dosOutput.writeInt(hackersList.size());
-        sClient.close();
-    }
-
     public static void main(String[] args) throws IOException {
 
         SalaReunions meetingRoom = new SalaReunions();
@@ -31,7 +20,6 @@ public class Principal implements Comu {
             hackersList.add(new Thread(hacker));
             System.out.printf("Cree: %s\n", hacker.getName());
         }
-        sendNumberOfHackers();
 
         for (Thread h :
                 hackersList) {

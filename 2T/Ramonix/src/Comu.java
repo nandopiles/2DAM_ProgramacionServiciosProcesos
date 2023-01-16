@@ -12,5 +12,10 @@ public interface Comu {
     int PORT = 5000;
 
     // LLISTAT DE HACKERS
-    Object[][] HACKERS = {{"Neo", -20, 2}, {"P4q1T0", -10, 1}, {"PaU3T", -10, 1}, {"Ab4$t0$", 10, 1}};
+    Object[][] HACKERS = {
+            {"Neo", -20, 2},
+            {"P4q1T0", -10, 1},
+            {"PaU3T", -10, 1},
+            {"Ab4$t0$", 10, 1}
+    };
 }
