@@ -6,6 +6,7 @@ public interface Comu {
     String ANSI_RED = "\u001B[31m";
     String ANSI_GREEN = "\u001B[32m";
     String ANSI_LIGHT_BROWN = "\u001B[1;33m";
+    String ANSI_BLUE = "\u001B[34m";
 
     // DADES DE LES CONNEXIONS
     String HOST = "localhost";

@@ -13,7 +13,22 @@ public class Ramonix implements Comu, Serializable {
     public Ramonix(int life) throws IOException {
         Ramonix.life = life;
         System.out.println(ANSI_GREEN + "Benvinguts a RAMONIX!" + ANSI_RESET);
-        startServer();
+        ssServer = new ServerSocket(PORT);
+
+        while (getLife() > 0) {
+            sClient = ssServer.accept();
+            isDestroyed();
+            receiveAttack();
+            sClient.close();
+            if (getLife() <= 0) {
+                sClient = ssServer.accept();
+                isDestroyed();
+                sClient.close();
+            }
+        }
+        System.out.println("COMUNIQUE AL CLIENT QUE TANQUE");
+
+        ssServer.close();
     }
 
     public static int getLife() {
@@ -41,7 +56,7 @@ public class Ramonix implements Comu, Serializable {
     }
 
     /**
-     * @throws IOException
+     * Mana al Hacker si Ramonix segueix en vida
      */
     public static void isDestroyed() throws IOException {
         DataOutputStream dosOutput = new DataOutputStream(sClient.getOutputStream());
@@ -57,7 +72,7 @@ public class Ramonix implements Comu, Serializable {
         String attackersName;
         int attack;
 
-        strengthAttackWithName = disInput.readUTF().split(" "); //a
+        strengthAttackWithName = disInput.readUTF().split(" ");
         attack = Integer.parseInt(strengthAttackWithName[0]);
         attackersName = strengthAttackWithName[1];
         switch (attackersName) {
@@ -69,25 +84,11 @@ public class Ramonix implements Comu, Serializable {
                 System.out.printf(ANSI_LIGHT_BROWN + "Atac des de: %s => (%d)\n" + ANSI_RESET, attackersName, attack);
                 break;
             case "Ab4$t0$":
-                System.out.printf(ANSI_GREEN + "Atac des de: %s => (%d)\n" + ANSI_RESET, attackersName, attack);
+                System.out.printf(ANSI_GREEN + "Atac des de: %s => (+%d)\n" + ANSI_RESET, attackersName, attack);
                 break;
         }
         this.setLife(life + attack);
         System.out.printf("**** Energia: %d\n", getLife());
-    }
-
-    public void startServer() throws IOException {
-        ssServer = new ServerSocket(PORT);
-
-        while (getLife() > 0) {
-            sClient = ssServer.accept();
-            isDestroyed();
-            receiveAttack();
-            sClient.close();
-        }
-        System.out.println("COMUNIQUE AL CLIENT QUE TANQUE");
-        sClient.close();
-        ssServer.close();
     }
 
     public static void main(String[] args) throws IOException {

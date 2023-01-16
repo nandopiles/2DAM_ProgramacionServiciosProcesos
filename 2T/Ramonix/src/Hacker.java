@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class Hacker implements Runnable, Comu {
+public class Hacker extends Thread implements Comu {
     private String name;
     private int strength;
     private int cadence;
@@ -11,13 +11,14 @@ public class Hacker implements Runnable, Comu {
         this.strength = strength;
         this.cadence = cadence;
         this.meetingRoom = meetingRoom;
+        System.out.printf("Cree: %s\n", this.getNameHacker());
     }
 
-    public String getName() {
+    public String getNameHacker() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setNameHacker(String name) {
         this.name = name;
     }
 
@@ -48,9 +49,9 @@ public class Hacker implements Runnable, Comu {
         synchronized (meetingRoom) {
             meetingRoom.addMember(this.name);
 
-            if (this.getName().equals("Neo")) {
+            if (this.getNameHacker().equals("Neo")) {
                 this.meetingRoom.setNeoHasCome();
-                System.out.printf("****** %s-: Bon dia. Anem a destruir RAMONIX! ******\n", this.getName());
+                System.out.printf("****** %s-: Bon dia. Anem a destruir RAMONIX! ******\n", this.getNameHacker());
                 this.meetingRoom.notifyAll();
             } else if (!meetingRoom.isNeoHasCome()) {
                 System.out.println("Encara no està Neo...");
@@ -59,27 +60,25 @@ public class Hacker implements Runnable, Comu {
         }
     }
 
+
     public void run() {
-        boolean isDestroyed;
+        boolean isDestroyed = false;
 
         try {
             hasNeoArrive();
-            System.out.printf("JA ESTEM TOTS. %s COMENÇA L'ATAC!!!\n", this.getName());
-            do {
-                new Atac(this);
-                isDestroyed = Atac.ferAtac();
-            } while (!isDestroyed);
-        } catch (InterruptedException | IOException e1) {
+        } catch (InterruptedException ignored) {
         }
+        System.out.printf("JA ESTEM TOTS. %s COMENÇA L'ATAC!!!\n", this.getNameHacker());
+        do {
+            try {
+                isDestroyed = Atac.ferAtac(this);
+            } catch (InterruptedException ignored) {
+            }
+        } while (!isDestroyed);
     }
 
     @Override
     public String toString() {
-        return "Hacker{" +
-                "name='" + name + '\'' +
-                ", strength=" + strength +
-                ", cadence=" + cadence +
-                ", meetingRoom=" + meetingRoom +
-                '}';
+        return "Hacker{" + "name='" + name + '\'' + ", strength=" + strength + ", cadence=" + cadence + ", meetingRoom=" + meetingRoom + '}';
     }
 }
