@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RamonixJB.iml" filepath="$PROJECT_DIR$/RamonixJB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EjemploServidor.iml" filepath="$PROJECT_DIR$/EjemploServidor.iml" />
     </modules>
   </component>
 </project>
