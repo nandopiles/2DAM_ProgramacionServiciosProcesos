@@ -13,12 +13,12 @@ public class Servidor {
         Socket sCliente = ssServidor.accept();
         System.out.println("[+] Conectat\n");
 
-        ObjectInputStream disEntrada = new ObjectInputStream(sCliente.getInputStream());
+        ObjectInputStream oisStream = new ObjectInputStream(sCliente.getInputStream());
+        Vehicul vehicul = (Vehicul) oisStream.readObject();
         System.out.println("[+] Rebut");
-        Vehicul v = (Vehicul) disEntrada.readObject();
-        System.out.println("Objecte rebut: " + v.toString());
+        System.out.println("Objecte rebut: " + vehicul);
 
-        disEntrada.close();
+        oisStream.close();
         ssServidor.close();
     }
 

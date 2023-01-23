@@ -1,0 +1,3 @@
+{ dniClient = 21009570J, matricula = 43213HFD, marca = Opel, model = Corsa, combustible = Gasolina, any = 2002 }
+{ dniClient = 21009570J, matricula = 43213HFD, marca = Opel, model = Corsa, combustible = Gasolina, any = 2002 }
+{ dniClient = 21009570J, matricula = 43213HFD, marca = Opel, model = Corsa, combustible = Gasolina, any = 2002 }

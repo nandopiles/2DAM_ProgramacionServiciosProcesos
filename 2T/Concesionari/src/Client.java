@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -10,15 +9,24 @@ public class Client {
     public Client() throws IOException {
         Socket sCliente = new Socket(HOST, PORT);
 
-        System.out.println("[+] Conectat");
+        System.out.println("[+] Connectat");
         ObjectOutputStream dosEntrada = new ObjectOutputStream(sCliente.getOutputStream());
 
-        Vehicul v = new Vehicul("21009570J", "43213HFD", "Opel",
+        Vehicul vehicul = new Vehicul("21009570J", "43213HFD", "Opel",
                 "Corsa", "Gasolina", 2002);
 
         dosEntrada.flush();
-        dosEntrada.writeObject(v);
-        System.out.printf("[+] Enviat vehícul de \"%s\"\n", v.getDniClient());
+        dosEntrada.writeObject(vehicul);
+        System.out.printf("[+] Enviat vehícul de \"%s\"\n", vehicul.getDniClient());
+
+        File file = new File("vehicul.txt");
+        PrintWriter printWriter = new PrintWriter(new FileWriter(file, true));
+        printWriter.println(vehicul);
+        System.out.println("[+] Vehicul escrit al fitxer " + file.getName());
+
+        dosEntrada.close();
+        printWriter.close();
+        sCliente.close();
     }
 
     public static void main(String[] args) throws IOException {
