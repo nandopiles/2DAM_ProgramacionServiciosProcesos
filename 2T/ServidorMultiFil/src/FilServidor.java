@@ -33,6 +33,6 @@ public class FilServidor extends Thread {
                 stop = true;
             }
         }
-        System.out.println("[+] FI AMD " + client);
+        System.out.println("[+] FI AMB " + client);
     }
 }

@@ -1,5 +1,3 @@
-import java.io.IOException;
-
 public class Hacker extends Thread implements Comu {
     private String name;
     private int strength;

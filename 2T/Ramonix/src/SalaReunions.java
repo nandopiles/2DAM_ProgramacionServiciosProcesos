@@ -1,7 +1,6 @@
-import java.io.Serializable;
 import java.util.ArrayList;
 
-class SalaReunions implements Serializable {
+class SalaReunions {
 
     private boolean neoHasCome;
     private final ArrayList<String> members;
