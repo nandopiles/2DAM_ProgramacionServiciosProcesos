@@ -5,7 +5,7 @@ import java.net.Socket;
  * @author Nando
  */
 public class FilServidor extends Thread {
-    private Socket client = null;
+    private Socket client;
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
 
